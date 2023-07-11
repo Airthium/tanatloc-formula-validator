@@ -8,8 +8,12 @@ node_modules
 !.yarn/sdks
 !.yarn/versions
 
+# Tools
+dump.log
+
 # Test
 coverage
+
 
 # Build
 dist

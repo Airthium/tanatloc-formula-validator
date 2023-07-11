@@ -2,12 +2,15 @@ import { parse } from '../src'
 
 describe('parse', () => {
   test('simple', () => {
-    const res = parse('1 + 2')
-    expect(res).toBe(true)
+    parse('1 + 2')
   })
 
   test('sin', () => {
-    const res = parse('1 + 2 * sin(2.*pi*t) + (1 * (x <= 0.5)')
-    expect(res).toBe(false) //missing parenthesis
+    try {
+      parse('1 + 2 * sin(2.*pi*t) + (1 * (x <= 0.5)')
+      expect(true).toBe(false)
+    } catch (err) {
+      expect(err.message).toBe('Separator mismatch')
+    }
   })
 })

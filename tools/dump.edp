@@ -1,0 +1,5 @@
+include "getARGV.idp"
+
+string output = getARGV("-o", "dump.log");
+ofstream dumpLog(output);
+dumptable(dumpLog);

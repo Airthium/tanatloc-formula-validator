@@ -32,6 +32,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@swc/core", "virtual:d60321cee413a9de3a444aa20433d80b6de4d8003686439cf02fe8d00f74d5b661604f00f51fba7b63cf29661a7fabae727345dead3598c291564c95306f35ae#npm:1.3.68"],\
             ["@swc/jest", "virtual:d60321cee413a9de3a444aa20433d80b6de4d8003686439cf02fe8d00f74d5b661604f00f51fba7b63cf29661a7fabae727345dead3598c291564c95306f35ae#npm:0.2.26"],\
             ["@types/jest", "npm:29.5.2"],\
+            ["@types/node", "npm:20.4.1"],\
             ["jest", "virtual:d60321cee413a9de3a444aa20433d80b6de4d8003686439cf02fe8d00f74d5b661604f00f51fba7b63cf29661a7fabae727345dead3598c291564c95306f35ae#npm:29.6.1"],\
             ["prettier", "npm:3.0.0"]\
           ],\
@@ -5293,6 +5294,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@swc/core", "virtual:d60321cee413a9de3a444aa20433d80b6de4d8003686439cf02fe8d00f74d5b661604f00f51fba7b63cf29661a7fabae727345dead3598c291564c95306f35ae#npm:1.3.68"],\
             ["@swc/jest", "virtual:d60321cee413a9de3a444aa20433d80b6de4d8003686439cf02fe8d00f74d5b661604f00f51fba7b63cf29661a7fabae727345dead3598c291564c95306f35ae#npm:0.2.26"],\
             ["@types/jest", "npm:29.5.2"],\
+            ["@types/node", "npm:20.4.1"],\
             ["jest", "virtual:d60321cee413a9de3a444aa20433d80b6de4d8003686439cf02fe8d00f74d5b661604f00f51fba7b63cf29661a7fabae727345dead3598c291564c95306f35ae#npm:29.6.1"],\
             ["prettier", "npm:3.0.0"]\
           ],\
