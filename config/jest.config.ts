@@ -3,7 +3,7 @@ import type { Config } from 'jest'
 const jestConfig: Config = {
   rootDir: '..',
   transformIgnorePatterns: [],
-  testMatch: ['<rootDir>/test/*.test.ts'],
+  testMatch: ['<rootDir>/test/**/*.test.ts'],
   transform: {
     '^.+\\.(t|j)s?$': '@swc/jest'
   },
