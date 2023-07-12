@@ -1,11 +1,17 @@
-// Formula validation
-// https://github.com/Airthium/old__tanatloc-client/blob/8c238a4e8556c4e123e1c5369c7bc6d7d2c3b81c/src/components/project/formula/Formula.js
-
 import { Options } from '../index.d'
 
-import { FreeFEMSeparators } from './defs'
+import {
+  FreeFEMOperators,
+  FreeFEMSeparators,
+  FreeFEMTypes,
+  FreeFemKeywords
+} from './defs'
 
-const checkSeparators = (formula: string): boolean => {
+/**
+ * Check separators
+ * @param formula Formula
+ */
+const checkSeparators = (formula: string): void => {
   // Map
   const map = new Map()
   FreeFEMSeparators.forEach((separator) => map.set(separator[0], separator[1]))
@@ -23,59 +29,96 @@ const checkSeparators = (formula: string): boolean => {
     }
   }
 
-  return stack.length === 0
+
+  // Check stack
+  if (stack.length !== 0)
+    throw new Error(
+      'Separator mismatch, check ' +
+        FreeFEMSeparators.map((separator) => separator.join(' .. ')).join(', ')
+    )
+}
+
+/**
+ * Check keywords
+ * @param formula Formula
+ * @param options Options
+ */
+const checkKeywords = (formula: string, options?: Options): void => {
+  // Sort
+  const operators = [...FreeFEMOperators].sort((a, b) => b.length - a.length)
+  const separators = [...FreeFEMSeparators]
+    .sort((a, b) => b.length - a.length)
+    .flat()
+  const keywords = [...FreeFemKeywords].sort((a, b) => b.length - a.length)
+  const types = [...FreeFEMTypes].sort((a, b) => b.length - a.length)
+
+  const additionalKeywords = [...(options?.additionalKeywords ?? [])].sort(
+    (a, b) => b.length - a.length
+  )
+
+  // Split
+  let left = formula
+  operators.forEach((operator) => (left = left.split(operator).join(' ')))
+  separators.forEach((separator) => (left = left.split(separator).join(' ')))
+  keywords.forEach((keyword) => (left = left.split(keyword).join(' ')))
+  types.forEach((type) => (left = left.split(type).join(' ')))
+
+  additionalKeywords.forEach(
+    (additionalKeyword) => (left = left.split(additionalKeyword).join(' '))
+  )
+
+  // Check lefts are only number
+  const lefts = left.split(' ').filter((l) => l)
+  for (const left of lefts) {
+    if (left === "'")continue
+    const parsed = Number(left)
+    if (isNaN(parsed)) throw new Error('Wrong keyword "' + left + '"')
+  }
+}
+
+/**
+ * Check operators
+ * @param formula Formula
+ */
+const checkOperators = (formula: string): void => {
+  // Sort
+  const operators = [...FreeFEMOperators].sort((a, b) => b.length - a.length)
+
+  // Split
+  let left = formula.replace(/\s/gi, '')
+  operators.forEach((operator) => (left = left.split(operator).join(' ')))
+  const lefts = left.split(' ')
+
+  // Minus at start
+  if (formula.startsWith('-') && !formula.startsWith('--')) lefts.shift()
+
+  // Check no empty string
+  for (let i = 0; i < lefts.length; ++i) {
+    const left = lefts[i]
+    if (left === '') {
+      if (lefts[i - 1] && lefts[i + 1]) {
+        throw new Error(
+          'Wrong operator between ' + lefts[i - 1] + ' and ' + lefts[i + 1]
+        )
+      } else if (lefts[i - 1]) {
+        throw new Error('Wrong operator after ' + lefts[i - 1])
+      } else if (lefts[i + 1]) {
+        throw new Error('Wrong operator before ' + lefts[i + 1])
+      } else {
+        throw new Error('Wrong operator')
+      }
+    }
+  }
 }
 
 export const parse = (formula: string, options?: Options): void => {
+  console.log(formula)
   // Check separators (parenthesis, array, blocks, string)
-  if (!checkSeparators(formula)) {
-    throw new Error('Separator mismatch')
-  }
+  checkSeparators(formula)
 
-  // const numbers = /^[0-9e.,]+$/
-  // const operators = /[\^+\-*/<>,\s]/
+  // Check keywords
+  checkKeywords(formula, options)
 
-  // // Remove spaces
-  // const cleanValue = formula.replace(/\s/gi, '')
-
-  // // Count parenthesis
-  // const openMatch = cleanValue.match(/\(/g)
-  // const closeMatch = cleanValue.match(/\)/g)
-  // const openNumber = openMatch?.length ?? 0
-  // const closeNumber = closeMatch?.length ?? 0
-
-  // // Split by operators (or space)
-  // const parts = cleanValue.split(operators)
-
-  // // minus is allowed at the begenning
-  // if (cleanValue.startsWith('-')) parts.shift()
-
-  // // Remove parenthesis
-  // const parenthesis = /[()]/
-  // const partsLength = parts.length
-  // for (let i = 0; i < partsLength; ++i) {
-  //   const part = parts[i]
-  //   if (part === '')
-  //     // This is a non authorized char from above
-  //     continue
-
-  //   const subParts = part.split(parenthesis)
-  //   subParts.forEach((subPart) => {
-  //     if (subPart !== '') parts.push(subPart)
-  //   })
-
-  //   parts[i] = '1' // Set a number, so it is valid
-  // }
-
-  // // Check if it is a number or if it is authorized
-  // let isAuthorized = openNumber === closeNumber
-  // parts.forEach((part) => {
-  //   isAuthorized =
-  //     isAuthorized &&
-  //     (numbers.test(part) ||
-  //       freefemDefs.includes(part) ||
-  //       (options?.additionalKeywords?.includes(part) ?? true))
-  // })
-
-  // return isAuthorized
+  // Check operators
+  checkOperators(formula)
 }

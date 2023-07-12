@@ -449,12 +449,11 @@ export const FreeFEMOperators = [
   ':',
   '?',
   '^-1',
-  "'"
+  // "'", // Treated separately
+  ','
 ]
 
 export const FreeFEMSeparators = [
   ['(', ')'],
   ['[', ']'],
-  ['{', '}'],
-  ['"', '"']
 ]
