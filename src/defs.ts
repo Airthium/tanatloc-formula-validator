@@ -455,5 +455,5 @@ export const FreeFEMOperators = [
 
 export const FreeFEMSeparators = [
   ['(', ')'],
-  ['[', ']'],
+  ['[', ']']
 ]

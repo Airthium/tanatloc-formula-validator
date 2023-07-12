@@ -29,7 +29,6 @@ const checkSeparators = (formula: string): void => {
     }
   }
 
-
   // Check stack
   if (stack.length !== 0)
     throw new Error(
@@ -70,7 +69,7 @@ const checkKeywords = (formula: string, options?: Options): void => {
   // Check lefts are only number
   const lefts = left.split(' ').filter((l) => l)
   for (const left of lefts) {
-    if (left === "'")continue
+    if (left === "'") continue
     const parsed = Number(left)
     if (isNaN(parsed)) throw new Error('Wrong keyword "' + left + '"')
   }

@@ -37,12 +37,12 @@ describe('parse', () => {
   test('keywords', () => {
     parse('sin(2. * pi * x)')
 
-    parse('sin(2. * pi * t + phi)', {additionalKeywords:['t', 'phi']})
+    parse('sin(2. * pi * t + phi)', { additionalKeywords: ['t', 'phi'] })
 
-    try{
-    parse('sin(2. * pi * t + phi)')
-    expect(true).toBe(false)
-    }catch(err){
+    try {
+      parse('sin(2. * pi * t + phi)')
+      expect(true).toBe(false)
+    } catch (err) {
       expect(err.message).toBe('Wrong keyword "t"')
     }
   })
@@ -52,32 +52,32 @@ describe('parse', () => {
 
     parse('-5.')
 
-    try{
-    parse('--5')
-    expect(true).toBe(false)
-    }catch(err){
+    try {
+      parse('--5')
+      expect(true).toBe(false)
+    } catch (err) {
       expect(err.message).toBe('Wrong operator before 5')
     }
 
-    try{
+    try {
       parse('-5 + * 6')
       expect(true).toBe(false)
-      }catch(err){
-        expect(err.message).toBe('Wrong operator between 5 and 6')
-      }
+    } catch (err) {
+      expect(err.message).toBe('Wrong operator between 5 and 6')
+    }
 
-      try{
-        parse('6+')
-        expect(true).toBe(false)
-      }catch(err){
-        expect(err.message).toBe('Wrong operator after 6')
-      }
+    try {
+      parse('6+')
+      expect(true).toBe(false)
+    } catch (err) {
+      expect(err.message).toBe('Wrong operator after 6')
+    }
 
-      try{
-        parse('+')
-        expect(true).toBe(false)
-        }catch(err){
-          expect(err.message).toBe('Wrong operator')
-        }
+    try {
+      parse('+')
+      expect(true).toBe(false)
+    } catch (err) {
+      expect(err.message).toBe('Wrong operator')
+    }
   })
 })
