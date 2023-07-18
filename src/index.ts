@@ -111,7 +111,6 @@ const checkOperators = (formula: string): void => {
 }
 
 export const parse = (formula: string, options?: Options): void => {
-  console.log(formula)
   // Check separators (parenthesis, array, blocks, string)
   checkSeparators(formula)
 

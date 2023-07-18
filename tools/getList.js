@@ -97,12 +97,12 @@ const main = () => {
   const keywords = getKeywords(dump)
   const types = getTypes(dump)
 
-  console.log(
+  console.info(
     'export const FreeFemKeywords =',
     JSON.stringify(keywords, null, '\t')
   )
-  console.log()
-  console.log('export const FreeFEMTypes =', JSON.stringify(types, null, '\t'))
+  console.info()
+  console.info('export const FreeFEMTypes =', JSON.stringify(types, null, '\t'))
 }
 
 main()
