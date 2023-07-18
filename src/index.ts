@@ -5,7 +5,7 @@ import {
   FreeFEMSeparators,
   FreeFEMTypes,
   FreeFemKeywords
-} from './defs'
+} from './defs.js'
 
 /**
  * Check separators
