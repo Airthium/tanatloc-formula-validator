@@ -37,7 +37,9 @@ describe('parse', () => {
   test('keywords', () => {
     parse('sin(2. * pi * x)')
 
-    parse('sin(2. * pi * t + phi)', { additionalKeywords: ['t', 'phi'] })
+    parse('Ux * sin(2. * pi * t + phi)', {
+      additionalKeywords: ['Ux', 't', 'phi']
+    })
 
     try {
       parse('sin(2. * pi * t + phi)')

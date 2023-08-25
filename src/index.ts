@@ -43,28 +43,22 @@ const checkSeparators = (formula: string): void => {
  * @param options Options
  */
 const checkKeywords = (formula: string, options?: Options): void => {
-  // Sort
-  const operators = [...FreeFEMOperators].sort((a, b) => b.length - a.length)
-  const separators = [...FreeFEMSeparators]
-    .sort((a, b) => b.length - a.length)
-    .flat()
-  const keywords = [...FreeFemKeywords].sort((a, b) => b.length - a.length)
-  const types = [...FreeFEMTypes].sort((a, b) => b.length - a.length)
+  // Global
+  const all = [
+    ...FreeFEMOperators,
+    ...FreeFEMSeparators.flat(),
+    ...FreeFemKeywords,
+    ...FreeFEMTypes,
+    ...FreeFEMOperators,
+    ...(options?.additionalKeywords ?? [])
+  ]
 
-  const additionalKeywords = [...(options?.additionalKeywords ?? [])].sort(
-    (a, b) => b.length - a.length
-  )
+  // Sort
+  all.sort((a, b) => b.length - a.length)
 
   // Split
   let left = formula
-  operators.forEach((operator) => (left = left.split(operator).join(' ')))
-  separators.forEach((separator) => (left = left.split(separator).join(' ')))
-  keywords.forEach((keyword) => (left = left.split(keyword).join(' ')))
-  types.forEach((type) => (left = left.split(type).join(' ')))
-
-  additionalKeywords.forEach(
-    (additionalKeyword) => (left = left.split(additionalKeyword).join(' '))
-  )
+  all.forEach((a) => (left = left.split(a).join(' ')))
 
   // Check lefts are only number
   const lefts = left.split(' ').filter((l) => l)
