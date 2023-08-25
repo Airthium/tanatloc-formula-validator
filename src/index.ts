@@ -53,22 +53,21 @@ const checkKeywords = (formula: string, options?: Options): void => {
   ]
     .sort((a, b) => b.length - a.length)
     .map((token) => token.replace(/[-\\^$*+?.()|[\]{}]/g, '\\$&'))
-    .join('|');
+    .join('|')
 
-  const regex = new RegExp(regexPattern, 'g');
+  const regex = new RegExp(regexPattern, 'g')
 
   // Split
-  let left = formula.replace(regex, ' ');
+  let left = formula.replace(regex, ' ')
 
   // Check lefts are only numbers or spaces.
   left.split(' ').forEach((token) => {
-    if (token === "'") return;
+    if (token === "'") return
     if (token && isNaN(Number(token))) {
-      throw new Error('Wrong keyword "' + token + '"');
+      throw new Error('Wrong keyword "' + token + '"')
     }
-  });
+  })
 }
-
 
 /**
  * Check operators
