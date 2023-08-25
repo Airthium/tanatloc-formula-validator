@@ -43,31 +43,32 @@ const checkSeparators = (formula: string): void => {
  * @param options Options
  */
 const checkKeywords = (formula: string, options?: Options): void => {
-  // Global
-  const all = [
+  // Sort
+  const regexPattern = [
     ...FreeFEMOperators,
     ...FreeFEMSeparators.flat(),
     ...FreeFemKeywords,
     ...FreeFEMTypes,
-    ...FreeFEMOperators,
     ...(options?.additionalKeywords ?? [])
   ]
+    .sort((a, b) => b.length - a.length)
+    .map((token) => token.replace(/[-\\^$*+?.()|[\]{}]/g, '\\$&'))
+    .join('|');
 
-  // Sort
-  all.sort((a, b) => b.length - a.length)
+  const regex = new RegExp(regexPattern, 'g');
 
   // Split
-  let left = formula
-  all.forEach((a) => (left = left.split(a).join(' ')))
+  let left = formula.replace(regex, ' ');
 
-  // Check lefts are only number
-  const lefts = left.split(' ').filter((l) => l)
-  for (const left of lefts) {
-    if (left === "'") continue
-    const parsed = Number(left)
-    if (isNaN(parsed)) throw new Error('Wrong keyword "' + left + '"')
-  }
+  // Check lefts are only numbers or spaces.
+  left.split(' ').forEach((token) => {
+    if (token === "'") return;
+    if (token && isNaN(Number(token))) {
+      throw new Error('Wrong keyword "' + token + '"');
+    }
+  });
 }
+
 
 /**
  * Check operators
