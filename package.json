@@ -1,7 +1,7 @@
 {
   "name": "@airthium/tanatloc-formula-validator",
-  "version": "1.0.29",
-  "main": "dist/src/index.js",
+  "version": "1.0.30",
+  "main": "dist/index.js",
   "repository": "git@github.com:Airthium/tanatloc-formula-validator.git",
   "license": "AGPL-3.0-or-later",
   "author": {
@@ -14,7 +14,7 @@
     "prettier": "prettier -l '**/*.{js,ts,json,md}'",
     "test": "jest --config config/jest.config.ts --silent --coverage",
     "get-list": "node tools/getList.js",
-    "build": "swc --config-file config/.swcrc src/ --out-dir dist"
+    "build": "swc --config-file config/.swcrc src/ --out-dir dist --strip-leading-paths"
   },
   "devDependencies": {
     "@swc/cli": "0.3.5",
