@@ -3,5 +3,9 @@
     "**/.yarn": true,
     "**/.pnp.*": true
   },
-  "prettier.prettierPath": ".yarn/sdks/prettier/index.js"
+  "prettier.prettierPath": ".yarn/sdks/prettier/index.js",
+  "sonarlint.connectedMode.project": {
+    "connectionId": "airthium",
+    "projectKey": "Airthium_tanatloc-formula-validator"
+  }
 }
