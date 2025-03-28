@@ -18,7 +18,7 @@
   },
   "devDependencies": {
     "@swc/cli": "0.6.0",
-    "@swc/core": "1.11.10",
+    "@swc/core": "1.11.13",
     "@swc/jest": "0.2.37",
     "@types/jest": "29.5.14",
     "depcheck": "1.4.7",
@@ -27,5 +27,5 @@
     "ts-node": "10.9.2",
     "typescript": "5.8.2"
   },
-  "packageManager": "yarn@4.7.0"
+  "packageManager": "yarn@4.8.0"
 }
