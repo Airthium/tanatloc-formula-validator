@@ -17,8 +17,8 @@
     "build": "swc --config-file config/.swcrc src/ --out-dir dist --strip-leading-paths"
   },
   "devDependencies": {
-    "@swc/cli": "0.7.3",
-    "@swc/core": "1.11.24",
+    "@swc/cli": "0.7.7",
+    "@swc/core": "1.11.31",
     "@swc/jest": "0.2.38",
     "@types/jest": "29.5.14",
     "depcheck": "1.4.7",
@@ -27,5 +27,5 @@
     "ts-node": "10.9.2",
     "typescript": "5.8.3"
   },
-  "packageManager": "yarn@4.9.1"
+  "packageManager": "yarn@4.9.2"
 }
