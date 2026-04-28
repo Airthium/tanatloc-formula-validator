@@ -8,10 +8,7 @@ src
 test
 tools
 .gitignore
-.pnp.cjs
-.pnp.loader.mjs
 .prettierignore
 .prettierrc
 .yarnrc.yml
-yarn.cmd
 yarn.lock
